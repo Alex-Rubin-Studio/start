@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ChoiceFrame1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type="text/css" rel="stylesheet" href="resources/sheet.css" >
+
+<style type="text/css">
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #073700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-table {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1.45;
+    border: 10pt outset orange;
+    background-color: black;
+    text-align: center;
+    font-family: Verdana;
+    font-size: clamp(3.75rem, 3.75vw, 4rem);
+    font-weight: 800;
+    margin: 0 auto;
+    color: #000;
+    width: 100%;
+    max-width: 100vh;
+    height: auto;
+}
+
+/* Define proportional heights */
+.choice-title {
+    flex: 20%;
+    color: black;
+    font-size: clamp(2.5rem, 4.5vw, 5rem);
+    text-shadow: 0 0 10px #fff, /* White glow */
+                 0 0 30px #fff,
+                 0 0 5px #150534, /* Blue glow */
+                 0 0 70px #150534;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aleph-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0 5%;
+    }
+.abce-button, .abcr-button, .aleph-button, .memory-button {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+    width: 85%; 
+    margin: 0 auto; 
+    padding: 2%; 
+    border: 5px outset white; 
+    border-radius: 10%; 
+    box-shadow: inset 0 0 50px grey;
+    font-family:'Optima';
+    font-weight:bold;
+    text-align:center;
+    margin: 0.5em auto;
+}
+     a { text-decoration: none;}
+}
+</style>
+
+<body>
+  <div class="big-table" id="bigTable">
+    <div class="choice-title" id="choiceTitle">GAME ROOM</div>
+    <div class="abce-button" id="abceButton">
+        <a href="Abc-Eng.html"; style="color:red;">ABCs</a></div>
+    <div class="abcr-button" id="abcrButton">
+        <a href="Abc-Rus.html"; style="color:yellow;">АБВГДейка</a></div>
+<div class="aleph-container" style="">    
+    <div class="aleph-button" id="alephButton" style="margin-right: 5%";>
+        <a href="AlephBet.html"; style="color:#0066fb; font-size:6rem;">א</a></div>
+    <div class="aleph-button" id="alephButton-2" style="margin-left: 5%">
+        <a href="AlephBet-2.html"; style="color:#0066fb; font-size:6rem;">אא</a></div>
+</div>      
+      <div class="memory-button" id="memoryButton"><a href="MemGame.html"; style="color:brown">E=mc²</a></div>
+  </div>
+
+<script>
+    function resizeBigTable() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const portraitRatio = 1 / 1.45;
+      const bigTable = document.querySelector('.big-table');
+      // Calculate which dimension to use so the table always fits
+      if (vw / vh < portraitRatio) {
+        // Screen is too tall, fit width
+        bigTable.style.width = vw + 'px';
+        bigTable.style.height = (vw / portraitRatio) + 'px';
+      } else {
+        // Screen is too wide, fit height
+        bigTable.style.height = vh + 'px';
+        bigTable.style.width = (vh * portraitRatio) + 'px';
+      }
+    }
+    window.addEventListener('resize', resizeBigTable);
+    window.addEventListener('DOMContentLoaded', resizeBigTable);
+
+    // Event listener for the "FULL SCREEN" button
+    if (fullScreenButton) {
+        fullScreenButton.addEventListener('click', () => {
+            // Check if full screen is even enabled by the browser/environment
+            if (!document.fullscreenEnabled) {
+                console.warn("Full-screen mode is not enabled or allowed by this browser/environment.");
+                alert("Full-screen mode is currently restricted by your browser or the embedding environment (e.g., an iframe). Please check your browser settings or ensure the page is opened directly, not embedded.");
+                return; // Exit the function if not enabled
+            }
+
+            if (!document.fullscreenElement) {
+                // If not in full-screen, request full-screen for the whole document
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                    if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
+                        alert("Full-screen mode could not be activated. This is often due to browser security policies or if the page is embedded in an iframe without the 'allowfullscreen' attribute.");
+                    } else {
+                        alert("Full-screen mode could not be activated due to an unexpected error.");
+                    }
+                });
+            } else {
+                // If in full-screen, exit full-screen
+                document.exitFullscreen().catch(err => {
+                    console.error(`Error attempting to exit full-screen mode: ${err.message} (${err.name})`);
+                    alert("Error exiting full-screen mode.");
+                });
+            }
+        });
+    }
+          
+  </script>
+</body>
+</html>
